@@ -1,14 +1,13 @@
-package com.capitol.pricing.except;
+package com.capitol.pricing.exception;
 
 import java.time.LocalDate;
-import java.util.Date;
 
-public class ErrorDisplay {
+public class RestError {
     private LocalDate timestamp;
     private String message;
     private String details;
 
-    public ErrorDisplay(LocalDate timestamp, String message, String details) {
+    private RestError(LocalDate timestamp, String message, String details) {
         this.timestamp = timestamp;
         this.message = message;
         this.details = details;
@@ -25,4 +24,33 @@ public class ErrorDisplay {
     public String getDetails() {
         return details;
     }
+
+    public static class Builder {
+        private LocalDate timestamp;
+        private String message;
+        private String details;
+
+        public Builder setTimestamp(LocalDate timestamp) {
+            this.timestamp = timestamp;
+            return this;
+        }
+
+        public Builder setMessage(String message) {
+            this.message = message;
+            return this;
+        }
+
+        public Builder setDetails(String details) {
+            this.details = details;
+            return this;
+        }
+
+        public RestError build() {
+            return new RestError(this.timestamp == null ? LocalDate.now() : this.timestamp,
+                    this.message, this.details);
+        }
+    }
 }
+
+
+

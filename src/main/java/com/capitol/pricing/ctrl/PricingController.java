@@ -1,6 +1,6 @@
 package com.capitol.pricing.ctrl;
 
-import com.capitol.pricing.except.ItemNotFoundException;
+import com.capitol.pricing.exception.ItemNotFoundException;
 import com.capitol.pricing.model.Price;
 import com.capitol.pricing.repo.PricingRepo;
 import org.springframework.http.ResponseEntity;
