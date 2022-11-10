@@ -1,5 +1,7 @@
 package com.capitol.pricing.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -8,16 +10,18 @@ import java.time.LocalDateTime;
 @Table(name = "prices")
 public class Price {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     long id;
 
     @Column(name = "brand_id", nullable = false)
     int brandId;
 
     @Column(name = "start_date", nullable = false)
+    @DateTimeFormat(pattern = "dd-MM-yyyy HH.mm.ss")
     LocalDateTime startDate;
 
     @Column(name = "end_date", nullable = false)
+    @DateTimeFormat(pattern = "dd-MM-yyyy HH.mm.ss")
     LocalDateTime endDate;
 
     @Column(name = "price_list", nullable = false)
