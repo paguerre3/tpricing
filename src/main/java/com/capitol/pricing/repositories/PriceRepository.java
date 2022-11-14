@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface PriceRepository extends JpaRepository<Price, Long> {
     // price list is interpreted as price id:
     Optional<Price> findByPriceList(Long priceListOrId);
-    List<Price> findTop3ByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityAsc(LocalDateTime startDate,
+    List<Price> findTop3ByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityDesc(LocalDateTime startDate,
                                                                                                                    LocalDateTime endDate,
                                                                                                                    Long productId,
                                                                                                                    Integer brandId);

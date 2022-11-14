@@ -33,7 +33,7 @@ public class PriceService implements Pricing {
     public Price getByDateWithProductIdAndBrand(final LocalDateTime searchDate,
                                                       long productId,
                                                       int brandId) throws ItemNotFoundException {
-        return priceRepository.findTop3ByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityAsc(searchDate,
+        return priceRepository.findTop3ByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityDesc(searchDate,
                         searchDate, productId, brandId)
                 .stream().findFirst().orElseThrow(() -> new ItemNotFoundException(
                         String.format("Price not found for searchDate %s productId %s and brandId %s", searchDate, productId, brandId)));

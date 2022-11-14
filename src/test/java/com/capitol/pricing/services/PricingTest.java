@@ -17,6 +17,81 @@ public class PricingTest {
     @Autowired
     Pricing pricing;
 
+    /**
+     * TEST CASE 1: petición a las 10:00 del día 14 del producto 35455   para la brand 1 (ZARA)
+     *
+     * @throws ItemNotFoundException
+     */
+    @Test
+    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case1SingleFound() throws ItemNotFoundException {
+        LocalDateTime searchDate = LocalDateTime.of(2020, 06, 14,
+                10, 00, 00);
+        Price p = pricing.getByDateWithProductIdAndBrand(searchDate, 35455L, 1);
+        assert p.getPriceList() == 1;
+        assert p.getPriority() == 0;
+        assert p.getPrice() == 35.50f;
+    }
+
+    /**
+     * TEST CASE 2: petición a las 16:00 del día 14 del producto 35455   para la brand 1 (ZARA)
+     *
+     * @throws ItemNotFoundException
+     */
+    @Test
+    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case2MultipleFindings() throws ItemNotFoundException {
+        LocalDateTime searchDate = LocalDateTime.of(2020, 06, 14,
+                16, 00, 00);
+        Price p = pricing.getByDateWithProductIdAndBrand(searchDate, 35455L, 1);
+        assert p.getPriceList() == 2;
+        assert p.getPriority() == 1;
+        assert p.getPrice() == 25.45f;
+    }
+
+    /**
+     * TEST CASE 3: petición a las 21:00 del día 14 del producto 35455   para la brand 1 (ZARA)
+     *
+     * @throws ItemNotFoundException
+     */
+    @Test
+    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case3SingleFound() throws ItemNotFoundException {
+        LocalDateTime searchDate = LocalDateTime.of(2020, 06, 14,
+                21, 00, 00);
+        Price p = pricing.getByDateWithProductIdAndBrand(searchDate, 35455L, 1);
+        assert p.getPriceList() == 1;
+        assert p.getPriority() == 0;
+        assert p.getPrice() == 35.50f;
+    }
+
+    /**
+     * TEST CASE 4: petición a las 10:00 del día 15 del producto 35455   para la brand 1 (ZARA)
+     *
+     * @throws ItemNotFoundException
+     */
+    @Test
+    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case4SingleFound() throws ItemNotFoundException {
+        LocalDateTime searchDate = LocalDateTime.of(2020, 06, 15,
+                10, 00, 00);
+        Price p = pricing.getByDateWithProductIdAndBrand(searchDate, 35455L, 1);
+        assert p.getPriceList() == 3;
+        assert p.getPriority() == 1;
+        assert p.getPrice() == 30.50f;
+    }
+
+    /**
+     * TEST CASE 5: petición a las 21:00 del día 16 del producto 35455   para la brand 1 (ZARA)
+     *
+     * @throws ItemNotFoundException
+     */
+    @Test
+    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case5SingleFoundDifferentDate() throws ItemNotFoundException {
+        LocalDateTime searchDate = LocalDateTime.of(2020, 06, 16,
+                21, 00, 00);
+        Price p = pricing.getByDateWithProductIdAndBrand(searchDate, 35455L, 1);
+        assert p.getPriceList() == 4;
+        assert p.getPriority() == 1;
+        assert p.getPrice() == 38.95f;
+    }
+
     @Test
     public void whenLoadingInitialData_thenRequiredValuesExist() {
         List<Price> pl = pricing.getAll();
@@ -54,35 +129,5 @@ public class PricingTest {
                 "Expected ItemNotFoundException during search but it didn't"
         );
         assert thrown.getMessage().contains("Price not found");
-    }
-
-    /**
-     * TEST CASE 1: petición a las 10:00 del día 14 del producto 35455   para la brand 1 (ZARA)
-     *
-     * @throws ItemNotFoundException
-     */
-    @Test
-    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_Case1() throws ItemNotFoundException {
-        LocalDateTime searchDate = LocalDateTime.of(2020, 06, 14,
-                10, 00, 00);
-        Price p = pricing.getByDateWithProductIdAndBrand(searchDate, 35455L, 1);
-        assert p.getPriceList() == 1;
-        assert p.getPriority() == 0;
-        assert p.getPrice() == 35.50f;
-    }
-
-    /**
-     * TEST CASE 2: petición a las 16:00 del día 14 del producto 35455   para la brand 1 (ZARA)
-     *
-     * @throws ItemNotFoundException
-     */
-    @Test
-    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_Case2() throws ItemNotFoundException {
-        LocalDateTime searchDate = LocalDateTime.of(2020, 06, 14,
-                16, 00, 00);
-        Price p = pricing.getByDateWithProductIdAndBrand(searchDate, 35455L, 1);
-        assert p.getPriceList() == 1;
-        assert p.getPriority() == 0;
-        assert p.getPrice() == 35.50f;
     }
 }
