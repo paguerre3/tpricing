@@ -57,7 +57,7 @@ public class PriceControllerTest {
     }
 
     @Test
-    public void whenGatheringPriceFound_thenPriceDetailsAreReturned() throws Exception {
+    public void whenGatheringPriceFoundByList_thenPriceDetailsAreReturned() throws Exception {
         given(pricing.getByPriceList(1L)).willReturn(p1);
         mvc.perform(get("/api/v1/prices/1").accept(mType).contentType(mType))
                 .andExpect(status().isOk())
@@ -66,7 +66,7 @@ public class PriceControllerTest {
 
 
     @Test
-    public void whenGatheringPriceNotPResent_thenNotFoundErrorOccurss() throws Exception {
+    public void whenGatheringPriceNotPresentByList_thenNotFoundErrorOccurs() throws Exception {
         given(pricing.getByPriceList(0L)).willThrow(ItemNotFoundException.class);
         // error details handled by advice:
         String contentAsString = mvc.perform(get("/api/v1/prices/0").accept(mType).contentType(mType))

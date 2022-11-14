@@ -1,5 +1,6 @@
 package com.capitol.pricing.services;
 
+import com.capitol.pricing.exceptions.InvalidArgumentException;
 import com.capitol.pricing.exceptions.ItemNotFoundException;
 import com.capitol.pricing.models.Price;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ public class PricingTest {
      * @throws ItemNotFoundException
      */
     @Test
-    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case1SingleFound() throws ItemNotFoundException {
+    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case1SingleFound() throws ItemNotFoundException, InvalidArgumentException {
         LocalDateTime searchDate = LocalDateTime.of(2020, 06, 14,
                 10, 00, 00);
         Price p = pricing.getByDateWithProductIdAndBrand(searchDate, 35455L, 1);
@@ -38,7 +39,7 @@ public class PricingTest {
      * @throws ItemNotFoundException
      */
     @Test
-    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case2MultipleFindings() throws ItemNotFoundException {
+    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case2MultipleFindings() throws ItemNotFoundException, InvalidArgumentException {
         LocalDateTime searchDate = LocalDateTime.of(2020, 06, 14,
                 16, 00, 00);
         Price p = pricing.getByDateWithProductIdAndBrand(searchDate, 35455L, 1);
@@ -53,7 +54,7 @@ public class PricingTest {
      * @throws ItemNotFoundException
      */
     @Test
-    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case3SingleFound() throws ItemNotFoundException {
+    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case3SingleFound() throws ItemNotFoundException, InvalidArgumentException {
         LocalDateTime searchDate = LocalDateTime.of(2020, 06, 14,
                 21, 00, 00);
         Price p = pricing.getByDateWithProductIdAndBrand(searchDate, 35455L, 1);
@@ -68,7 +69,7 @@ public class PricingTest {
      * @throws ItemNotFoundException
      */
     @Test
-    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case4SingleFound() throws ItemNotFoundException {
+    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case4SingleFound() throws ItemNotFoundException, InvalidArgumentException {
         LocalDateTime searchDate = LocalDateTime.of(2020, 06, 15,
                 10, 00, 00);
         Price p = pricing.getByDateWithProductIdAndBrand(searchDate, 35455L, 1);
@@ -83,7 +84,7 @@ public class PricingTest {
      * @throws ItemNotFoundException
      */
     @Test
-    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case5SingleFoundDifferentDate() throws ItemNotFoundException {
+    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case5SingleFoundDifferentDate() throws ItemNotFoundException, InvalidArgumentException {
         LocalDateTime searchDate = LocalDateTime.of(2020, 06, 16,
                 21, 00, 00);
         Price p = pricing.getByDateWithProductIdAndBrand(searchDate, 35455L, 1);
@@ -116,7 +117,7 @@ public class PricingTest {
                 "Expected ItemNotFoundException but it didn't"
         );
 
-        assert thrown.getMessage().contains("Price not found");
+        assert thrown.getMessage().contains("Price not found for priceList");
     }
 
     @Test
@@ -128,6 +129,16 @@ public class PricingTest {
                 () -> pricing.getByDateWithProductIdAndBrand(searchDate, 1L, 1),
                 "Expected ItemNotFoundException during search but it didn't"
         );
-        assert thrown.getMessage().contains("Price not found");
+        assert thrown.getMessage().contains("Price not found for searchDate");
+    }
+
+    @Test
+    public void whenGatheringNotPreloadedPriceBySearchWithMissingArguments_thenPriceDoesNotExist() {
+        InvalidArgumentException thrown = assertThrows(
+                InvalidArgumentException.class,
+                () -> pricing.getByDateWithProductIdAndBrand(null, 1L, 1),
+                "Expected InvalidArgumentException during search but it didn't"
+        );
+        assert thrown.getMessage().contains("Price not found because of missing arguments");
     }
 }

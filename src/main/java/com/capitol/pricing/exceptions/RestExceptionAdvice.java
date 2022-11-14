@@ -8,19 +8,25 @@ import org.springframework.web.context.request.WebRequest;
 
 @ControllerAdvice
 public class RestExceptionAdvice {
-    @ExceptionHandler(ItemNotFoundException.class)
-    public ResponseEntity<?> handleItemNotFoundException(ItemNotFoundException ex, WebRequest request) {
-        RestError ed = new RestError.Builder().setMessage(ex.getMessage())
+
+    private RestError fulfillError(final Exception ex, final WebRequest request) {
+        return new RestError.Builder().setMessage(ex.getMessage())
                 .setDetails(request.getDescription(false))
                 .build();
-        return new ResponseEntity<>(ed, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ItemNotFoundException.class)
+    public ResponseEntity<?> handleItemNotFoundException(ItemNotFoundException ex, WebRequest request) {
+        return new ResponseEntity<>(fulfillError(ex, request), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(InvalidArgumentException.class)
+    public ResponseEntity<?> handleInvalidArgumentException(InvalidArgumentException ex, WebRequest request) {
+        return new ResponseEntity<>(fulfillError(ex, request), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleGeneralException(Exception ex, WebRequest request) {
-        RestError ed = new RestError.Builder().setMessage(ex.getMessage())
-                .setDetails(request.getDescription(false))
-                .build();
-        return new ResponseEntity<>(ed, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(fulfillError(ex, request), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
