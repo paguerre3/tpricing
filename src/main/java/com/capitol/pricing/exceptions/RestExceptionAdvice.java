@@ -1,4 +1,4 @@
-package com.capitol.pricing.exception;
+package com.capitol.pricing.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
