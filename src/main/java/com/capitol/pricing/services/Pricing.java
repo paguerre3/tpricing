@@ -1,6 +1,6 @@
 package com.capitol.pricing.services;
 
-import com.capitol.pricing.exceptions.InvalidArgumentException;
+import com.capitol.pricing.exceptions.MissingArgumentException;
 import com.capitol.pricing.exceptions.ItemNotFoundException;
 import com.capitol.pricing.models.Price;
 
@@ -15,5 +15,5 @@ public interface Pricing {
 
     Price getByDateWithProductIdAndBrand(final LocalDateTime searchDate,
                                          long productId,
-                                         int brandId) throws ItemNotFoundException, InvalidArgumentException;
+                                         int brandId) throws ItemNotFoundException, MissingArgumentException;
 }

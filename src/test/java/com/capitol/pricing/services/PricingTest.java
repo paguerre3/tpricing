@@ -1,6 +1,6 @@
 package com.capitol.pricing.services;
 
-import com.capitol.pricing.exceptions.InvalidArgumentException;
+import com.capitol.pricing.exceptions.MissingArgumentException;
 import com.capitol.pricing.exceptions.ItemNotFoundException;
 import com.capitol.pricing.models.Price;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ public class PricingTest {
      * @throws ItemNotFoundException
      */
     @Test
-    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case1SingleFound() throws ItemNotFoundException, InvalidArgumentException {
+    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case1SingleFound() throws ItemNotFoundException, MissingArgumentException {
         LocalDateTime searchDate = LocalDateTime.of(2020, 6, 14,
                 10, 0, 0);
         Price p = pricing.getByDateWithProductIdAndBrand(searchDate, 35455L, 1);
@@ -39,7 +39,7 @@ public class PricingTest {
      * @throws ItemNotFoundException
      */
     @Test
-    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case2MultipleFindings() throws ItemNotFoundException, InvalidArgumentException {
+    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case2MultipleFindings() throws ItemNotFoundException, MissingArgumentException {
         LocalDateTime searchDate = LocalDateTime.of(2020, 6, 14,
                 16, 0, 0);
         Price p = pricing.getByDateWithProductIdAndBrand(searchDate, 35455L, 1);
@@ -54,7 +54,7 @@ public class PricingTest {
      * @throws ItemNotFoundException
      */
     @Test
-    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case3SingleFound() throws ItemNotFoundException, InvalidArgumentException {
+    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case3SingleFound() throws ItemNotFoundException, MissingArgumentException {
         LocalDateTime searchDate = LocalDateTime.of(2020, 6, 14,
                 21, 0, 0);
         Price p = pricing.getByDateWithProductIdAndBrand(searchDate, 35455L, 1);
@@ -69,7 +69,7 @@ public class PricingTest {
      * @throws ItemNotFoundException
      */
     @Test
-    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case4SingleFound() throws ItemNotFoundException, InvalidArgumentException {
+    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case4SingleFound() throws ItemNotFoundException, MissingArgumentException {
         LocalDateTime searchDate = LocalDateTime.of(2020, 6, 15,
                 10, 0, 0);
         Price p = pricing.getByDateWithProductIdAndBrand(searchDate, 35455L, 1);
@@ -84,7 +84,7 @@ public class PricingTest {
      * @throws ItemNotFoundException
      */
     @Test
-    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case5SingleFoundDifferentDate() throws ItemNotFoundException, InvalidArgumentException {
+    public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case5SingleFoundDifferentDate() throws ItemNotFoundException, MissingArgumentException {
         LocalDateTime searchDate = LocalDateTime.of(2020, 6, 16,
                 21, 0, 0);
         Price p = pricing.getByDateWithProductIdAndBrand(searchDate, 35455L, 1);
@@ -134,8 +134,8 @@ public class PricingTest {
 
     @Test
     public void whenGatheringNotPreloadedPriceBySearchWithMissingArguments_thenPriceDoesNotExist() {
-        InvalidArgumentException thrown = assertThrows(
-                InvalidArgumentException.class,
+        MissingArgumentException thrown = assertThrows(
+                MissingArgumentException.class,
                 () -> pricing.getByDateWithProductIdAndBrand(null, 1L, 1),
                 "Expected InvalidArgumentException during search but it didn't"
         );

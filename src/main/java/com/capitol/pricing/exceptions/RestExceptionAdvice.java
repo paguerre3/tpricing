@@ -20,8 +20,8 @@ public class RestExceptionAdvice {
         return new ResponseEntity<>(fulfillError(ex, request), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(InvalidArgumentException.class)
-    public ResponseEntity<?> handleInvalidArgumentException(InvalidArgumentException ex, WebRequest request) {
+    @ExceptionHandler(MissingArgumentException.class)
+    public ResponseEntity<?> handleMissingArgumentException(MissingArgumentException ex, WebRequest request) {
         return new ResponseEntity<>(fulfillError(ex, request), HttpStatus.BAD_REQUEST);
     }
 

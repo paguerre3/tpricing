@@ -1,6 +1,6 @@
 package com.capitol.pricing.controllers;
 
-import com.capitol.pricing.exceptions.InvalidArgumentException;
+import com.capitol.pricing.exceptions.MissingArgumentException;
 import com.capitol.pricing.exceptions.ItemNotFoundException;
 import com.capitol.pricing.models.Price;
 import com.capitol.pricing.services.Pricing;
@@ -31,7 +31,7 @@ public class PriceController {
                                                         LocalDateTime dateToApply,
                                                     @PathVariable(value = "productId") long productId,
                                                     @PathVariable(value = "brandId")  int brandId)
-            throws ItemNotFoundException, InvalidArgumentException {
+            throws ItemNotFoundException, MissingArgumentException {
         return ResponseEntity.ok().body(this.pricing.getByDateWithProductIdAndBrand(dateToApply,
                 productId, brandId));
     }

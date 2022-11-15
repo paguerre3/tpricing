@@ -121,6 +121,19 @@ public class PriceControllerTest {
     }
 
     @Test
+    public void whenSearchingForPriceToApplyOutOfScopeFromView_thenPriceNotFound() throws Exception {
+        // date out of range (not present in db):
+        searchAndValidatePriceToApplyRawContent("/api/v1/prices/search/2022-10-10T21:00:00/35455/1",
+                status().isNotFound());
+        // product id out of scope (not present in db):
+        searchAndValidatePriceToApplyRawContent("/api/v1/prices/search/2020-06-16T21:00:00/00000/1",
+                status().isNotFound());
+        // brand id out of scope (not present in db):
+        searchAndValidatePriceToApplyRawContent("/api/v1/prices/search/2020-06-16T21:00:00/35455/0",
+                status().isNotFound());
+    }
+
+    @Test
     public void whenGatheringPriceFoundByList_thenPriceDetailsAreReturned() throws Exception {
         String contentAsString = mvc.perform(get("/api/v1/prices/1").accept(mType).contentType(mType))
                 .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
@@ -141,10 +154,14 @@ public class PriceControllerTest {
         assert jsonError.get("timestamp").equals(errorDisplay.getTimestamp().toString());
     }
 
-    private Optional<Price> searchAndValidatePriceToApply(final String uri, final ResultMatcher contentStatus) throws Exception {
-        String contentAsString = mvc.perform(get(uri).accept(mType).contentType(mType))
+    private String searchAndValidatePriceToApplyRawContent(final String uri, final ResultMatcher contentStatus) throws Exception {
+        return mvc.perform(get(uri).accept(mType).contentType(mType))
                 .andExpect(contentStatus)
                 .andReturn().getResponse().getContentAsString();
+    }
+
+    private Optional<Price> searchAndValidatePriceToApply(final String uri, final ResultMatcher contentStatus) throws Exception {
+        String contentAsString = searchAndValidatePriceToApplyRawContent(uri, contentStatus);
         return Optional.of(objMapper.readValue(contentAsString, Price.class));
     }
 
