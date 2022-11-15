@@ -1,6 +1,35 @@
 # tpricing
 pricing challenge
 
+
+
+# install
+### using mvn wrapper (pre-requisite: java installed)
+<code>./mvnw clean install</code>
+
+<code>java -jar target/pricing-0.0.1-SNAPSHOT.jar</code>
+
+### using docker (pre-requisite: docker installed)
+build docker image (it takes some time until layers download)
+<code>docker build -t tpricing:1.0 .</code>
+
+check that docker image was built
+<code> docker images                 
+REPOSITORY                           TAG        IMAGE ID       CREATED         SIZE
+tpricing                             1.0        2a19a7189e3b   4 minutes ago   357MB
+</code>
+
+run container as demon
+<code>docker run -p 8080:8080 --name tpricing -d tpricing:1.0</code>
+
+check container is running
+<code>docker ps
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS                                       NAMES
+6c94bf4697c6   tpricing:1.0   "sh -c 'java $JAVA_O…"   17 seconds ago   Up 16 seconds   0.0.0.0:8080->8080/tcp, :::8080->8080/tcp   tpricing
+</code>
+
+
+
 # swagger3
 API usage documentation at
 

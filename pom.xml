@@ -13,9 +13,12 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>pricing</name>
 	<description>Demo pricing project in Spring Boot</description>
+
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
+		<start-class>com.capitol.pricing.PricingApplication</start-class>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

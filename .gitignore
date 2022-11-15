@@ -32,3 +32,6 @@ target/
 **.DS_Store
 .vscode/settings.json
 code_quality_service/
+
+#exceptions
+!.mvn/**/*.jar
