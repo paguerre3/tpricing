@@ -11,16 +11,16 @@ http://localhost:8080/swagger-ui/index.html
 
 # arquitecture
 ### sequence view
-![Screenshot](https://github.com/paguerre3/tpricing/blob/master/design/seq-diagram.png?raw=true)
+![Screenshot](https://github.com/paguerre3/tpricing/blob/main/design/seq-diagram.png?raw=true)
 
 ### package view
-![Screenshot](https://github.com/paguerre3/tpricing/blob/master/design/pckge-diagram.png?raw=true)
+![Screenshot](https://github.com/paguerre3/tpricing/blob/main/design/pckge-diagram.png?raw=true)
 
 ### diagram entity relationship view
-![Screenshot](https://github.com/paguerre3/tpricing/blob/master/design/der-diagram.png?raw=true)
+![Screenshot](https://github.com/paguerre3/tpricing/blob/main/design/der-diagram.png?raw=true)
 
 ### implementation view
-![Screenshot](https://github.com/paguerre3/tpricing/blob/master/design/impl-img.png?raw=true)
+![Screenshot](https://github.com/paguerre3/tpricing/blob/main/design/impl-img.png?raw=true)
 
 
 
