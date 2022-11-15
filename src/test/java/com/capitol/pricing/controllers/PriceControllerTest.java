@@ -123,7 +123,7 @@ public class PriceControllerTest {
     @Test
     public void whenSearchingForPriceToApplyOutOfScopeFromView_thenPriceNotFound() throws Exception {
         // date out of range (not present in db):
-        searchAndValidatePriceToApplyRawContent("/api/v1/prices/search/2022-10-10T21:00:00/35455/1",
+        searchAndValidatePriceToApplyRawContent("/api/v1/prices/search/2013-10-10T21:00:00/35455/1",
                 status().isNotFound());
         // product id out of scope (not present in db):
         searchAndValidatePriceToApplyRawContent("/api/v1/prices/search/2020-06-16T21:00:00/00000/1",
@@ -131,6 +131,17 @@ public class PriceControllerTest {
         // brand id out of scope (not present in db):
         searchAndValidatePriceToApplyRawContent("/api/v1/prices/search/2020-06-16T21:00:00/35455/0",
                 status().isNotFound());
+    }
+
+    @Test
+    public void whenSearchingForPriceToApplyIncorrectly_thenInternalError() throws Exception {
+        // date out of range (not present in db):
+        String rawContent = searchAndValidatePriceToApplyRawContent("/api/v1/prices/search/0/35455/1",
+                status().isInternalServerError());
+        Map<String, Object> jsonError = objMapper.readValue(rawContent, Map.class);
+        RestError errorDisplay = getDisplayErrorToCompare("uri=/api/v1/prices/0");
+        assert jsonError.get("details").equals("uri=/api/v1/prices/search/0/35455/1");
+        assert jsonError.get("timestamp").equals(errorDisplay.getTimestamp().toString());
     }
 
     @Test
