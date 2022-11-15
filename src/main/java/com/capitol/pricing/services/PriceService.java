@@ -23,6 +23,19 @@ public class PriceService implements Pricing {
     }
 
     @Override
+    public Price getByDateWithProductIdAndBrand(final LocalDateTime searchDate,
+                                                long productId,
+                                                int brandId) throws ItemNotFoundException, MissingArgumentException {
+        if (Stream.of(searchDate, productId, brandId).anyMatch(Objects::isNull))
+            throw new MissingArgumentException(String.format("Price not found because of missing arguments searchDate %s productId %s and brandId %s", searchDate, productId, brandId));
+        return priceRepository.findTop3ByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityDesc(searchDate,
+                        searchDate, productId, brandId)
+                .stream().findFirst().orElseThrow(() -> new ItemNotFoundException(String.format("Price not found for searchDate %s productId %s and brandId %s", searchDate, productId, brandId)));
+    }
+
+
+
+    @Override
     public List<Price> getAll() {
         return priceRepository.findAll();
     }
@@ -30,16 +43,5 @@ public class PriceService implements Pricing {
     @Override
     public Price getByPriceList(final Long priceList) throws ItemNotFoundException {
         return priceRepository.findByPriceList(priceList).orElseThrow(() -> new ItemNotFoundException("Price not found for priceList/id  " + priceList));
-    }
-
-    @Override
-    public Price getByDateWithProductIdAndBrand(final LocalDateTime searchDate,
-                                                      long productId,
-                                                      int brandId) throws ItemNotFoundException, MissingArgumentException {
-        if (Stream.of(searchDate, productId, brandId).anyMatch(Objects::isNull))
-                throw new MissingArgumentException(String.format("Price not found because of missing arguments searchDate %s productId %s and brandId %s", searchDate, productId, brandId));
-        return priceRepository.findTop3ByStartDateLessThanEqualAndEndDateGreaterThanEqualAndProductIdAndBrandIdOrderByPriorityDesc(searchDate,
-                        searchDate, productId, brandId)
-                .stream().findFirst().orElseThrow(() -> new ItemNotFoundException(String.format("Price not found for searchDate %s productId %s and brandId %s", searchDate, productId, brandId)));
     }
 }

@@ -57,6 +57,7 @@ public class PriceControllerTest {
            assert p.getPriceList() == 1;
            assert p.getPriority() == 0;
            assert p.getPrice() == 35.50f;
+           assert p.equals(getPriceToCompare());
        });
     }
 
@@ -120,6 +121,8 @@ public class PriceControllerTest {
         });
     }
 
+
+
     @Test
     public void whenSearchingForPriceToApplyOutOfScopeFromView_thenPriceNotFound() throws Exception {
         // date out of range (not present in db):
@@ -141,27 +144,6 @@ public class PriceControllerTest {
         Map<String, Object> jsonError = objMapper.readValue(rawContent, Map.class);
         RestError errorDisplay = getDisplayErrorToCompare("uri=/api/v1/prices/0");
         assert jsonError.get("details").equals("uri=/api/v1/prices/search/0/35455/1");
-        assert jsonError.get("timestamp").equals(errorDisplay.getTimestamp().toString());
-    }
-
-    @Test
-    public void whenGatheringPriceFoundByList_thenPriceDetailsAreReturned() throws Exception {
-        String contentAsString = mvc.perform(get("/api/v1/prices/1").accept(mType).contentType(mType))
-                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-        Price priceResp = objMapper.readValue(contentAsString, Price.class);
-        assert priceResp.equals(getPriceToCompare());
-    }
-
-
-    @Test
-    public void whenGatheringPriceNotPresentByList_thenNotFoundErrorOccurs() throws Exception {
-        // error details handled by advice:
-        String contentAsString = mvc.perform(get("/api/v1/prices/0").accept(mType).contentType(mType))
-                .andExpect(status().isNotFound())
-                .andReturn().getResponse().getContentAsString();
-        Map<String, Object> jsonError = objMapper.readValue(contentAsString, Map.class);
-        RestError errorDisplay = getDisplayErrorToCompare("uri=/api/v1/prices/0");
-        assert jsonError.get("details").equals(errorDisplay.getDetails());
         assert jsonError.get("timestamp").equals(errorDisplay.getTimestamp().toString());
     }
 

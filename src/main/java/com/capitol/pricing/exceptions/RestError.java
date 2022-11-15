@@ -7,6 +7,13 @@ public class RestError {
     private String message;
     private String details;
 
+    /**
+     * Constructor isn't exposed above class scope as it's only being used inside builder.
+     *
+     * @param timestamp LocalDate
+     * @param message String
+     * @param details details
+     */
     private RestError(LocalDate timestamp, String message, String details) {
         this.timestamp = timestamp;
         this.message = message;
@@ -25,6 +32,9 @@ public class RestError {
         return details;
     }
 
+    /**
+     * Builder pattern implementation.
+     */
     public static class Builder {
         private LocalDate timestamp;
         private String message;

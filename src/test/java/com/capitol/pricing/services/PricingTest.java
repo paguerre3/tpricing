@@ -93,6 +93,8 @@ public class PricingTest {
         assert p.getPrice() == 38.95f;
     }
 
+
+
     @Test
     public void whenLoadingInitialData_thenRequiredValuesExist() {
         List<Price> pl = pricing.getAll();
