@@ -25,6 +25,17 @@ public class PriceController {
         this.pricing = pricing;
     }
 
+    @GetMapping("/search/{dateToApply}/{productId}/{brandId}")
+    public ResponseEntity<Price> searchPriceToApply(@PathVariable(value = "dateToApply")
+                                                        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+                                                        LocalDateTime dateToApply,
+                                                    @PathVariable(value = "productId") long productId,
+                                                    @PathVariable(value = "brandId")  int brandId)
+            throws ItemNotFoundException, InvalidArgumentException {
+        return ResponseEntity.ok().body(this.pricing.getByDateWithProductIdAndBrand(dateToApply,
+                productId, brandId));
+    }
+
     @GetMapping("/all")
     public List<Price> getAllPrices() {
         return this.pricing.getAll();
@@ -35,16 +46,5 @@ public class PriceController {
             throws ItemNotFoundException {
         // price list can be interpreted as priceId
         return ResponseEntity.ok().body(this.pricing.getByPriceList(priceList));
-    }
-
-    @GetMapping("/search/{dateToApply}/{productId}/{brandId}")
-    public ResponseEntity<Price> searchPriceToApply(@PathVariable(value = "dateToApply")
-                                                        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-                                                        LocalDateTime dateToApply,
-                                                    @PathVariable(value = "productId") long productId,
-                                                    @PathVariable(value = "brandId")  int brandId)
-            throws ItemNotFoundException, InvalidArgumentException {
-        return ResponseEntity.ok().body(this.pricing.getByDateWithProductIdAndBrand(dateToApply,
-                productId, brandId));
     }
 }

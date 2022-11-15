@@ -23,7 +23,7 @@ public class PriceTest {
         p.setPriority(1);
         p.setPrice(10.55f);
         p.setCurrency(Currency.EUR);
-        Price pClone = (Price) SerializationUtils.clone(p);
+        Price pClone = SerializationUtils.clone(p);
         assert p.equals(pClone);
         assert p.hashCode() == pClone.hashCode();
         p.setPriceList(2);

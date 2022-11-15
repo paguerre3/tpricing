@@ -25,8 +25,8 @@ public class PricingTest {
      */
     @Test
     public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case1SingleFound() throws ItemNotFoundException, InvalidArgumentException {
-        LocalDateTime searchDate = LocalDateTime.of(2020, 06, 14,
-                10, 00, 00);
+        LocalDateTime searchDate = LocalDateTime.of(2020, 6, 14,
+                10, 0, 0);
         Price p = pricing.getByDateWithProductIdAndBrand(searchDate, 35455L, 1);
         assert p.getPriceList() == 1;
         assert p.getPriority() == 0;
@@ -40,8 +40,8 @@ public class PricingTest {
      */
     @Test
     public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case2MultipleFindings() throws ItemNotFoundException, InvalidArgumentException {
-        LocalDateTime searchDate = LocalDateTime.of(2020, 06, 14,
-                16, 00, 00);
+        LocalDateTime searchDate = LocalDateTime.of(2020, 6, 14,
+                16, 0, 0);
         Price p = pricing.getByDateWithProductIdAndBrand(searchDate, 35455L, 1);
         assert p.getPriceList() == 2;
         assert p.getPriority() == 1;
@@ -55,8 +55,8 @@ public class PricingTest {
      */
     @Test
     public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case3SingleFound() throws ItemNotFoundException, InvalidArgumentException {
-        LocalDateTime searchDate = LocalDateTime.of(2020, 06, 14,
-                21, 00, 00);
+        LocalDateTime searchDate = LocalDateTime.of(2020, 6, 14,
+                21, 0, 0);
         Price p = pricing.getByDateWithProductIdAndBrand(searchDate, 35455L, 1);
         assert p.getPriceList() == 1;
         assert p.getPriority() == 0;
@@ -70,8 +70,8 @@ public class PricingTest {
      */
     @Test
     public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case4SingleFound() throws ItemNotFoundException, InvalidArgumentException {
-        LocalDateTime searchDate = LocalDateTime.of(2020, 06, 15,
-                10, 00, 00);
+        LocalDateTime searchDate = LocalDateTime.of(2020, 6, 15,
+                10, 0, 0);
         Price p = pricing.getByDateWithProductIdAndBrand(searchDate, 35455L, 1);
         assert p.getPriceList() == 3;
         assert p.getPriority() == 1;
@@ -85,8 +85,8 @@ public class PricingTest {
      */
     @Test
     public void whenGatheringPreloadedPriceBySearch_thenPriceWithHigherPriorityIsReturned_case5SingleFoundDifferentDate() throws ItemNotFoundException, InvalidArgumentException {
-        LocalDateTime searchDate = LocalDateTime.of(2020, 06, 16,
-                21, 00, 00);
+        LocalDateTime searchDate = LocalDateTime.of(2020, 6, 16,
+                21, 0, 0);
         Price p = pricing.getByDateWithProductIdAndBrand(searchDate, 35455L, 1);
         assert p.getPriceList() == 4;
         assert p.getPriority() == 1;
@@ -123,7 +123,7 @@ public class PricingTest {
     @Test
     public void whenGatheringNotPreloadedPriceBySearch_thenPriceDoesNotExist() {
         LocalDateTime searchDate = LocalDateTime.of(2013, 10, 10,
-                12, 00, 00);
+                12, 0, 0);
         ItemNotFoundException thrown = assertThrows(
                 ItemNotFoundException.class,
                 () -> pricing.getByDateWithProductIdAndBrand(searchDate, 1L, 1),

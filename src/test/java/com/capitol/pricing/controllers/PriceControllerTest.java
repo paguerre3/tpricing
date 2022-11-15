@@ -1,10 +1,8 @@
 package com.capitol.pricing.controllers;
 
-import com.capitol.pricing.exceptions.ItemNotFoundException;
 import com.capitol.pricing.exceptions.RestError;
 import com.capitol.pricing.models.Price;
 import com.capitol.pricing.models.enums.Currency;
-import com.capitol.pricing.services.Pricing;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -13,18 +11,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -39,9 +36,6 @@ public class PriceControllerTest {
 
     static MediaType mType;
     static ObjectMapper objMapper;
-    static Price p1;
-    static RestError e1;
-
 
     @BeforeAll
     public static void init() {
@@ -49,19 +43,81 @@ public class PriceControllerTest {
         objMapper = JsonMapper.builder()
                 .addModule(new JavaTimeModule())
                 .build();
-        p1 = new Price();
-        p1.setBrandId(1);
-        p1.setStartDate(LocalDateTime.of(2020, 06, 14, 00, 00, 00));
-        p1.setEndDate(LocalDateTime.of(2020, 12, 31, 23, 59, 59));
-        p1.setProductId(35455L);
-        p1.setPriceList(1);
-        p1.setPrice(35.50f);
-        p1.setPriority(0);
-        p1.setCurrency(Currency.EUR);
-        e1 = new RestError.Builder()
-                .setTimestamp(LocalDate.now())
-                .setDetails("uri=/api/v1/prices/0")
-                .build();
+    }
+
+    /**
+     * TEST CASE 1: petición a las 10:00 del día 14 del producto 35455   para la brand 1 (ZARA)
+     *
+     */
+    @Test
+    public void whenSearchingForPriceToApplyFromView_thenPriceWithHigherPriorityIsReturned_case1SingleFound() throws Exception {
+       Optional<Price> po = searchAndValidatePriceToApply("/api/v1/prices/search/2020-06-14T10:00:00/35455/1",
+               status().isOk());
+       po.ifPresent(p -> {
+           assert p.getPriceList() == 1;
+           assert p.getPriority() == 0;
+           assert p.getPrice() == 35.50f;
+       });
+    }
+
+    /**
+     * TEST CASE 2: petición a las 16:00 del día 14 del producto 35455   para la brand 1 (ZARA)
+     *
+     */
+    @Test
+    public void whenSearchingForPriceToApplyFromView_thenPriceWithHigherPriorityIsReturned_case2MultipleFindings() throws Exception {
+        Optional<Price> po = searchAndValidatePriceToApply("/api/v1/prices/search/2020-06-14T16:00:00/35455/1",
+                status().isOk());
+        po.ifPresent(p -> {
+            assert p.getPriceList() == 2;
+            assert p.getPriority() == 1;
+            assert p.getPrice() == 25.45f;
+        });
+    }
+
+    /**
+     * TEST CASE 3: petición a las 21:00 del día 14 del producto 35455   para la brand 1 (ZARA)
+     *
+     */
+    @Test
+    public void whenSearchingForPriceToApplyFromView_thenPriceWithHigherPriorityIsReturned_case3SingleFound() throws Exception {
+        Optional<Price> po = searchAndValidatePriceToApply("/api/v1/prices/search/2020-06-14T21:00:00/35455/1",
+                status().isOk());
+        po.ifPresent(p -> {
+            assert p.getPriceList() == 1;
+            assert p.getPriority() == 0;
+            assert p.getPrice() == 35.50f;
+        });
+    }
+
+    /**
+     * TEST CASE 4: petición a las 10:00 del día 15 del producto 35455   para la brand 1 (ZARA)
+     *
+     */
+    @Test
+    public void whenSearchingForPriceToApplyFromView_thenPriceWithHigherPriorityIsReturned_case4SingleFound() throws Exception {
+        Optional<Price> po = searchAndValidatePriceToApply("/api/v1/prices/search/2020-06-15T10:00:00/35455/1",
+                status().isOk());
+        po.ifPresent(p -> {
+            assert p.getPriceList() == 3;
+            assert p.getPriority() == 1;
+            assert p.getPrice() == 30.50f;
+        });
+    }
+
+    /**
+     * TEST CASE 5: petición a las 21:00 del día 16 del producto 35455   para la brand 1 (ZARA)
+     *
+     */
+    @Test
+    public void whenSearchingForPriceToApplyFromView_thenPriceWithHigherPriorityIsReturned_case5SingleFoundDifferentDate() throws Exception {
+        Optional<Price> po = searchAndValidatePriceToApply("/api/v1/prices/search/2020-06-16T21:00:00/35455/1",
+                status().isOk());
+        po.ifPresent(p -> {
+            assert p.getPriceList() == 4;
+            assert p.getPriority() == 1;
+            assert p.getPrice() == 38.95f;
+        });
     }
 
     @Test
@@ -69,7 +125,7 @@ public class PriceControllerTest {
         String contentAsString = mvc.perform(get("/api/v1/prices/1").accept(mType).contentType(mType))
                 .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         Price priceResp = objMapper.readValue(contentAsString, Price.class);
-        assert priceResp.equals(p1);
+        assert priceResp.equals(getPriceToCompare());
     }
 
 
@@ -80,7 +136,35 @@ public class PriceControllerTest {
                 .andExpect(status().isNotFound())
                 .andReturn().getResponse().getContentAsString();
         Map<String, Object> jsonError = objMapper.readValue(contentAsString, Map.class);
-        assert jsonError.get("details").equals(e1.getDetails());
-        assert jsonError.get("timestamp").equals(e1.getTimestamp().toString());
+        RestError errorDisplay = getDisplayErrorToCompare("uri=/api/v1/prices/0");
+        assert jsonError.get("details").equals(errorDisplay.getDetails());
+        assert jsonError.get("timestamp").equals(errorDisplay.getTimestamp().toString());
+    }
+
+    private Optional<Price> searchAndValidatePriceToApply(final String uri, final ResultMatcher contentStatus) throws Exception {
+        String contentAsString = mvc.perform(get(uri).accept(mType).contentType(mType))
+                .andExpect(contentStatus)
+                .andReturn().getResponse().getContentAsString();
+        return Optional.of(objMapper.readValue(contentAsString, Price.class));
+    }
+
+    private Price getPriceToCompare() {
+        Price pc = new Price();
+        pc.setBrandId(1);
+        pc.setStartDate(LocalDateTime.of(2020, 6, 14, 0, 0, 0));
+        pc.setEndDate(LocalDateTime.of(2020, 12, 31, 23, 59, 59));
+        pc.setProductId(35455L);
+        pc.setPriceList(1);
+        pc.setPrice(35.50f);
+        pc.setPriority(0);
+        pc.setCurrency(Currency.EUR);
+        return pc;
+    }
+
+    private RestError getDisplayErrorToCompare(final String errorDetails) {
+        return new RestError.Builder()
+                .setTimestamp(LocalDate.now())
+                .setDetails(errorDetails)
+                .build();
     }
 }
