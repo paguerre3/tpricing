@@ -15,11 +15,11 @@ public class Price implements Serializable {
     int brandId;
 
     @Column(name = "start_date", nullable = false)
-    @DateTimeFormat(pattern = "dd-MM-yyyy'T'HH.mm.ss")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     LocalDateTime startDate;
 
     @Column(name = "end_date", nullable = false)
-    @DateTimeFormat(pattern = "dd-MM-yyyy'T'HH.mm.ss")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     LocalDateTime endDate;
 
     // price list is id of model, it can be renamed to id:
