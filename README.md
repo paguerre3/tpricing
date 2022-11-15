@@ -4,14 +4,15 @@ pricing challenge
 
 
 # install
-### using mvn wrapper (pre-requisite: java installed)
+### Alternative 1: using mvn wrapper (pre-requisite: java installed)
 build target artifact and run tests
 <pre><code>./mvnw clean install</code></pre>
 
+execute jar
 <pre><code>java -jar target/pricing-0.0.1-SNAPSHOT.jar</code></pre>
 
 
-### using docker (pre-requisite: docker installed)
+### Alternative 2: using docker (pre-requisite: docker installed)
 build docker image (it takes some time until layers download)
 <pre><code>docker build -t tpricing:1.0 .</code></pre>
 
@@ -50,7 +51,7 @@ http://localhost:8080/swagger-ui/index.html
 ### diagram entity relationship view
 ![Screenshot](https://github.com/paguerre3/tpricing/blob/main/design/der-diagram.png?raw=true)
 
-### implementation view
+### technology stack
 ![Screenshot](https://github.com/paguerre3/tpricing/blob/main/design/impl-img.png?raw=true)
 
 
