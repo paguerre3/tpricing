@@ -77,7 +77,8 @@ http://localhost:8080/h2-console
 
 
 
-# release versioning
+# versioning
+### versioning semantic
 https://semver.org/
 
 
