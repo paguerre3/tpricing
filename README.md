@@ -77,6 +77,10 @@ http://localhost:8080/h2-console
 
 
 
+# release versioning
+https://semver.org/
+
+
 
 # license
 Copyright 2021, paguerre3
