@@ -7,10 +7,9 @@ pricing challenge
 ### 5 test cases required by challenge
 API: https://github.com/paguerre3/tpricing/blob/main/src/test/java/com/capitol/pricing/controllers/PriceControllerTest.java
 
----
-**NOTE**
-Service and model tests are included in proper package.
----
+**Note**
+
+Service and model tests are included in proper package
 
 
 
