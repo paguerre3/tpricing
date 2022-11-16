@@ -3,6 +3,17 @@ pricing challenge
 
 
 
+# test code
+### 5 test cases required by challenge
+API: https://github.com/paguerre3/tpricing/blob/main/src/test/java/com/capitol/pricing/controllers/PriceControllerTest.java
+
+---
+**NOTE**
+Service and model tests are included in proper package.
+---
+
+
+
 # install
 ### Alternative 1: using mvn wrapper (pre-requisite: java installed)
 build target artifact and run tests
