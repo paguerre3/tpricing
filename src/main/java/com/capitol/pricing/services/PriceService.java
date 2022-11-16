@@ -22,6 +22,9 @@ public class PriceService implements Pricing {
         this.priceRepository = priceRepository;
     }
 
+    /**
+     * {@link Pricing#getByDateWithProductIdAndBrand(LocalDateTime, long, int)}  findPriceToApply}
+     */
     @Override
     public Price getByDateWithProductIdAndBrand(final LocalDateTime searchDate,
                                                 long productId,
@@ -35,11 +38,17 @@ public class PriceService implements Pricing {
 
 
 
+    /**
+     * {@link Pricing#getAll()} findAll}
+     */
     @Override
     public List<Price> getAll() {
         return priceRepository.findAll();
     }
 
+    /**
+     * {@link Pricing#getByPriceList(Long)} findByPriceListOrId}
+     */
     @Override
     public Price getByPriceList(final Long priceList) throws ItemNotFoundException {
         return priceRepository.findByPriceList(priceList).orElseThrow(() -> new ItemNotFoundException("Price not found for priceList/id  " + priceList));

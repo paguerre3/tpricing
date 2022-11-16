@@ -11,7 +11,7 @@ public interface Pricing {
     /**
      * Core service method required my capitol test that finds the price to apply based on a search date that should be
      * present between start and end dates "inclusively", a productId and a brandId, e.g. 2013-10-10T21:00:00, 35455 ad 1 (ZARA).
-     * Notice that in case several prices are found during a certain then the one that has the highest priority is selected.
+     * Notice that in case several prices are found during a certain date range then the one that has the highest priority is selected.
      * @param searchDate LocalDateTime
      * @param productId long
      * @param brandId int

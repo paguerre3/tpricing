@@ -32,7 +32,7 @@ public class PriceController {
     /**
      * API method required by capitol tests that finds the price to apply based on a search date that should be
      * present between start and end dates "inclusively", a productId and a brandId, e.g. 2020-06-14T10:00:00, 35455 ad 1 (ZARA).
-     * Notice that in case several prices are found during a certain then the one that has the highest priority is selected.
+     * Notice that in case several prices are found during a certain date range then the one that has the highest priority is selected.
      *
      * @param dateToApply LocalDateTime from ISO format
      * @param productId long

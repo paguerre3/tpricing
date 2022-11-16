@@ -19,7 +19,8 @@ public class SwaggerConfig {
                 "APIs for challenge project.",
                 "1.0",
                 "Terms of service",
-                new Contact("Pablo Aguerre", "www.linkedin.com/in/pablo-aguerre-b7a3aa8", "pablo.aguerre@gmail.com"),
+                // www.linkedin.com/in/pablo-aguerre-b7a3aa8
+                new Contact("Pablo Aguerre", "", "pablo.aguerre@gmail.com"),
                 "Apache-2.0 license",
                 "https://github.com/paguerre3/tpricing/blob/main/LICENSE",
                 Collections.emptyList());
