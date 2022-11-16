@@ -3,15 +3,6 @@ pricing challenge
 
 
 
-# test code
-### 5 test cases required by challenge
-API: https://github.com/paguerre3/tpricing/blob/main/src/test/java/com/capitol/pricing/controllers/PriceControllerTest.java
-
-**Note**
-
-Service and model tests are included in proper package
-
-
 
 # install
 ### Alternative 1: using mvn wrapper (pre-requisite: java installed)
@@ -43,12 +34,21 @@ CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS  
 
 
 
+# test code
+### 5 test cases required by challenge
+https://github.com/paguerre3/tpricing/blob/main/src/test/java/com/capitol/pricing/controllers/PriceControllerTest.java
+
+**Note**
+
+Service and model tests are included in proper package
+
+
+
 # swagger3 
 ### (pre-requisite: service install complete)
 API usage documentation at 
 
 http://localhost:8080/swagger-ui/index.html
-
 
 
 
