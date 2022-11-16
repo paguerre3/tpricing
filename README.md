@@ -33,8 +33,9 @@ CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS  
 
 
 
-# swagger3
-API usage documentation at
+# swagger3 
+### (pre-requisite: service install complete)
+API usage documentation at 
 
 http://localhost:8080/swagger-ui/index.html
 
@@ -59,6 +60,7 @@ http://localhost:8080/swagger-ui/index.html
 
 
 # h2-console
+### (pre-requisite: service install complete)
 H2 database in memory console at
 
 http://localhost:8080/h2-console
