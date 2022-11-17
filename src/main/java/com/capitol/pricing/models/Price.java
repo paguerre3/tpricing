@@ -11,35 +11,36 @@ import java.util.Objects;
 @Entity
 @Table(name = "prices")
 public class Price implements Serializable {
+
     @Column(name = "brand_id", nullable = false)
-    int brandId;
+    protected int brandId;
 
     @Column(name = "start_date", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    LocalDateTime startDate;
+    protected LocalDateTime startDate;
 
     @Column(name = "end_date", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    LocalDateTime endDate;
+    protected LocalDateTime endDate;
 
     // price list is id of model, it can be renamed to id:
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "price_list", nullable = false)
-    long priceList;
+    protected long priceList;
 
     @Column(name = "product_id", nullable = false)
-    long productId;
+    protected long productId;
 
     @Column(name = "priority", nullable = false)
     int priority;
 
     @Column(name = "price", nullable = false)
-    float price;
+    protected float price;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "currency", nullable = false)
-    Currency currency;
+    protected Currency currency;
 
     public int getBrandId() {
         return brandId;

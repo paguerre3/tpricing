@@ -3,6 +3,7 @@ package com.capitol.pricing.controllers;
 import com.capitol.pricing.exceptions.MissingArgumentException;
 import com.capitol.pricing.exceptions.ItemNotFoundException;
 import com.capitol.pricing.models.Price;
+import com.capitol.pricing.models.views.PriceRate;
 import com.capitol.pricing.services.Pricing;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/prices")
@@ -37,7 +39,7 @@ public class PriceController {
      * @param dateToApply LocalDateTime from ISO format
      * @param productId long
      * @param brandId int
-     * @return ResponseEntity<Price>
+     * @return ResponseEntity<PriceRate>
      * @throws ItemNotFoundException
      * @throws MissingArgumentException
      */
@@ -51,17 +53,19 @@ public class PriceController {
             @ApiResponse(code = 500, message = "General error")
     })
     @GetMapping("/search/{dateToApply}/{productId}/{brandId}")
-    public ResponseEntity<Price> searchPriceToApply(@ApiParam(name = "dateToApply", value = "2020-06-14T10:00:00", required = true)
+    public ResponseEntity<PriceRate> searchPriceToApply(@ApiParam(name = "dateToApply", value = "2020-06-14T10:00:00", required = true)
                                                         @PathVariable(value = "dateToApply")
                                                         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
                                                         LocalDateTime dateToApply,
-                                                    @ApiParam(name = "productId", value = "35455", required = true)
+                                                        @ApiParam(name = "productId", value = "35455", required = true)
                                                     @PathVariable(value = "productId") long productId,
-                                                    @ApiParam(name = "brandId", value = "1", required = true)
+                                                        @ApiParam(name = "brandId", value = "1", required = true)
                                                     @PathVariable(value = "brandId")  int brandId)
             throws ItemNotFoundException, MissingArgumentException {
-        return ResponseEntity.ok().body(this.pricing.getByDateWithProductIdAndBrand(dateToApply,
-                productId, brandId));
+        // price rate ignores "priority" on display, i.e. @JsonIgnore:
+        return ResponseEntity.ok().body(Optional.of(this.pricing.getByDateWithProductIdAndBrand(dateToApply,
+                productId, brandId)).map(p -> new PriceRate(p.getBrandId(), p.getStartDate(), p.getEndDate(),
+                p.getPriceList(), p.getProductId(), p.getPrice(), p.getCurrency())).get());
     }
 
 

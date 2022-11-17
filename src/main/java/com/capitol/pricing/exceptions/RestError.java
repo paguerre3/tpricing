@@ -3,25 +3,25 @@ package com.capitol.pricing.exceptions;
 import java.time.LocalDate;
 
 public class RestError {
-    private LocalDate timestamp;
+    private LocalDate localDate;
     private String message;
     private String details;
 
     /**
      * Constructor isn't exposed above class scope as it's only being used inside builder.
      *
-     * @param timestamp LocalDate
+     * @param localDate LocalDate
      * @param message String
      * @param details details
      */
-    private RestError(LocalDate timestamp, String message, String details) {
-        this.timestamp = timestamp;
+    private RestError(LocalDate localDate, String message, String details) {
+        this.localDate = localDate;
         this.message = message;
         this.details = details;
     }
 
-    public LocalDate getTimestamp() {
-        return timestamp;
+    public LocalDate getLocalDate() {
+        return localDate;
     }
 
     public String getMessage() {
@@ -36,12 +36,12 @@ public class RestError {
      * Builder pattern implementation.
      */
     public static class Builder {
-        private LocalDate timestamp;
+        private LocalDate localDate;
         private String message;
         private String details;
 
-        public Builder setTimestamp(LocalDate timestamp) {
-            this.timestamp = timestamp;
+        public Builder setLocalDate(LocalDate localDate) {
+            this.localDate = localDate;
             return this;
         }
 
@@ -56,7 +56,7 @@ public class RestError {
         }
 
         public RestError build() {
-            return new RestError(this.timestamp == null ? LocalDate.now() : this.timestamp,
+            return new RestError(this.localDate == null ? LocalDate.now() : this.localDate,
                     this.message, this.details);
         }
     }
