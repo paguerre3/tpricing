@@ -48,8 +48,8 @@ public class PriceController {
             " e.g. 2020-06-14T10:00:00, 35455 ad 1 (ZARA)",
             notes = "In case several prices are found during a certain date range then the one that has the highest priority is selected.\n Search date must be specified in ISO.DATE_TIME format")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Price to apply successfully found"),
-            @ApiResponse(code = 404, message = "Not price to apply was found"),
+            @ApiResponse(code = 200, message = "Price rate to apply successfully found (highest priority price)"),
+            @ApiResponse(code = 404, message = "Not price rate to apply was found"),
             @ApiResponse(code = 500, message = "General error")
     })
     @GetMapping("/search/{dateToApply}/{productId}/{brandId}")
