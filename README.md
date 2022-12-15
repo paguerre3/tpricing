@@ -53,11 +53,8 @@ http://localhost:8080/swagger-ui/index.html
 
 
 # arquitecture
-### sequence view
-![Screenshot](https://github.com/paguerre3/tpricing/blob/main/design/seq-diagram.png?raw=true)
-
-### package view
-![Screenshot](https://github.com/paguerre3/tpricing/blob/main/design/pckge-diagram.png?raw=true)
+### domain driven organisation
+![Screenshot](https://github.com/paguerre3/tpricing/blob/feature/ddd-design/design/ddd-diagram.png?raw=true)
 
 ### diagram entity relationship view
 ![Screenshot](https://github.com/paguerre3/tpricing/blob/main/design/der-diagram.png?raw=true)
