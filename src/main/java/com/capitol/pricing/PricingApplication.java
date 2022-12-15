@@ -1,4 +1,4 @@
-package com.capitol.pricing;
+package com.capitol.pricing.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
