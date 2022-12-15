@@ -1,7 +1,7 @@
-package com.capitol.pricing.models.views;
+package com.capitol.pricing.domain.models;
 
-import com.capitol.pricing.models.Price;
-import com.capitol.pricing.models.enums.Currency;
+import com.capitol.pricing.domain.models.Price;
+import com.capitol.pricing.domain.models.Currency;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDateTime;

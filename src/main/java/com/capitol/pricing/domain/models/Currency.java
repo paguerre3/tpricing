@@ -1,4 +1,4 @@
-package com.capitol.pricing.models.enums;
+package com.capitol.pricing.domain.models;
 
 public enum Currency {
     EUR,

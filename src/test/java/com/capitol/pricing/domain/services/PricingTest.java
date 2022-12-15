@@ -1,8 +1,8 @@
-package com.capitol.pricing.services;
+package com.capitol.pricing.domain.services;
 
-import com.capitol.pricing.exceptions.MissingArgumentException;
-import com.capitol.pricing.exceptions.ItemNotFoundException;
-import com.capitol.pricing.models.Price;
+import com.capitol.pricing.domain.models.exceptions.MissingArgumentException;
+import com.capitol.pricing.domain.models.exceptions.ItemNotFoundException;
+import com.capitol.pricing.domain.models.Price;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

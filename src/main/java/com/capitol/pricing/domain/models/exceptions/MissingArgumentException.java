@@ -1,4 +1,4 @@
-package com.capitol.pricing.exceptions;
+package com.capitol.pricing.domain.models.exceptions;
 
 public class MissingArgumentException extends Exception{
     public MissingArgumentException(String message){

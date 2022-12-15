@@ -1,10 +1,10 @@
-package com.capitol.pricing.controllers;
+package com.capitol.pricing.application;
 
-import com.capitol.pricing.exceptions.MissingArgumentException;
-import com.capitol.pricing.exceptions.ItemNotFoundException;
-import com.capitol.pricing.models.Price;
-import com.capitol.pricing.models.views.PriceRate;
-import com.capitol.pricing.services.Pricing;
+import com.capitol.pricing.domain.models.exceptions.MissingArgumentException;
+import com.capitol.pricing.domain.models.exceptions.ItemNotFoundException;
+import com.capitol.pricing.domain.models.Price;
+import com.capitol.pricing.domain.models.PriceRate;
+import com.capitol.pricing.domain.services.Pricing;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;

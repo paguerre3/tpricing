@@ -1,6 +1,5 @@
-package com.capitol.pricing.models;
+package com.capitol.pricing.domain.models;
 
-import com.capitol.pricing.models.enums.Currency;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;

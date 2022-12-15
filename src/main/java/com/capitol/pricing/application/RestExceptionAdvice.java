@@ -1,5 +1,8 @@
-package com.capitol.pricing.exceptions;
+package com.capitol.pricing.application;
 
+import com.capitol.pricing.domain.models.exceptions.ItemNotFoundException;
+import com.capitol.pricing.domain.models.exceptions.MissingArgumentException;
+import com.capitol.pricing.domain.models.exceptions.RestError;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

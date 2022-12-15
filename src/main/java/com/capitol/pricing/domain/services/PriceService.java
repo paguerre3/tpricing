@@ -1,9 +1,9 @@
-package com.capitol.pricing.services;
+package com.capitol.pricing.domain.services;
 
-import com.capitol.pricing.exceptions.MissingArgumentException;
-import com.capitol.pricing.exceptions.ItemNotFoundException;
-import com.capitol.pricing.models.Price;
-import com.capitol.pricing.repositories.PriceRepository;
+import com.capitol.pricing.domain.models.exceptions.MissingArgumentException;
+import com.capitol.pricing.domain.models.exceptions.ItemNotFoundException;
+import com.capitol.pricing.domain.models.Price;
+import com.capitol.pricing.domain.repositories.PriceRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

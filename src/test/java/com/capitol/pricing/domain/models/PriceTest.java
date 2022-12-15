@@ -1,6 +1,5 @@
-package com.capitol.pricing.models;
+package com.capitol.pricing.domain.models;
 
-import com.capitol.pricing.models.enums.Currency;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,9 +1,8 @@
-package com.capitol.pricing.controllers;
+package com.capitol.pricing.application;
 
-import com.capitol.pricing.exceptions.RestError;
-import com.capitol.pricing.models.Price;
-import com.capitol.pricing.models.enums.Currency;
-import com.capitol.pricing.models.views.PriceRate;
+import com.capitol.pricing.domain.models.exceptions.RestError;
+import com.capitol.pricing.domain.models.Currency;
+import com.capitol.pricing.domain.models.PriceRate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;

@@ -1,6 +1,6 @@
-package com.capitol.pricing.repositories;
+package com.capitol.pricing.domain.repositories;
 
-import com.capitol.pricing.models.Price;
+import com.capitol.pricing.domain.models.Price;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
